@@ -1,0 +1,73 @@
+* {
+    background-color: rgb(28, 32, 39);
+    font-family: sans-serif;
+    color: white;
+    outline: none;
+}
+
+/* https://stackoverflow.com/a/6202729 */
+
+#login {
+    display: block;
+}
+
+#main {
+	display: none;
+}
+
+#user-info {
+    float: right;
+}
+
+#content {
+	padding-top: 15px;
+}
+
+/* Simple comment indentation */
+details * {
+    margin-left: 20px;
+}
+
+details {
+    border-left: solid white thin;
+    margin-bottom: 10px;
+}
+
+.content-post-text, .content-post-image {
+    margin-bottom: 10px;
+    white-space: pre-wrap;
+}
+
+.content-post {
+    width: calc(100% - 50px);
+    height: auto;
+    overflow: hidden;
+    margin-left: 25px;
+    margin-bottom: 15px;
+    border: solid thin white;
+    border-radius: 25px;
+	padding: 5px;
+	min-height: 250px;
+}
+
+.content-user-history-post, .content-user-history-comment {
+	border-bottom: solid thin white;
+}
+
+img {
+    max-width: 75vw;
+}
+
+.noMargin {
+    margin: 0px;
+}
+
+#login {
+	text-align: center;
+	width: 100vw;
+}
+
+#top {
+	position: fixed;
+	width: 100vw;
+}

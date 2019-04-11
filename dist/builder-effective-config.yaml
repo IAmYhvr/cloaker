@@ -1,0 +1,12 @@
+directories:
+  output: dist
+  buildResources: build
+appId: com.yhvr.cloaker
+productName: Cloaker
+copyright: Copyright © 2019 Yhvr
+mac:
+  category: public.app-category.entertainment
+  icon: build/icon.icns
+  darkModeSupport: true
+  target: dmg
+electronVersion: 4.1.3

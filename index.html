@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!-- Thanks for checking out the code! -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge"><!--                                                                 cdn for remarkable                     images-->
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https://saidit.net/ https://oauth.saidit.net/ https://cdn.jsdelivr.net/ ; img-src *">
+    <title>Cloaker</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="node_modules/vex-js/dist/css/vex.css">
+    <link rel="stylesheet" href="node_modules/vex-js/dist/css/vex-theme-default.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="noMargin">
+    <div id="login">
+		<img src="cloakerfull.png" alt="Cloaker"><br>
+		<input type="text" placeholder="Username" id="username"><br>
+		<input type="password" placeholder="Password" id="password"><br>
+		<input type="submit" value="Login" onclick="login()">
+    </div>
+    <div id="main">
+        <div id="top">
+			<button onclick="alert(`[I] - Right click - Vote insightful.\n[F] - Right click - fun.\n[R] - Right click - Reply to comment.`)">Help</button>
+			<button onclick="alert(`Cloaker v0.1\nDeveloped By Yhvr\nNPM packages used: electron, redditor, electron-packager, & vex-js. Thanks!`)">About</button>
+			<button onclick="loadSub('home')">Home</button>
+			<button onclick="loadSub('all')">All</button>
+			<button onclick="loadSub('subscribed')">Subscribed</button>
+			<input type="text" id="content-top-input" placeholder="example">
+			<button onclick="loadSub(document.getElementById('content-top-input').value)">Go to Custom</button>
+
+            <div id="user-info">
+
+        	</div>
+        </div>
+
+
+        <div id="content">
+            
+        </div>
+    </div>
+
+	<!-- Scripts -->
+	<script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>
+    <script src="node_modules/vex-js/dist/js/vex.combined.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
