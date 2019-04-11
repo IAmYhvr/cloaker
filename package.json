@@ -19,19 +19,19 @@
     "vex-js": "^4.1.0"
   },
   "devDependencies": {
-	"electron": "^4.1.3",
+    "electron": "^4.1.3",
     "electron-builder": "^20.39.0"
   },
   "build": {
-	"appId": "com.yhvr.cloaker",
-	"productName": "Cloaker",
-	"copyright": "Copyright © 2019 Yhvr",
-	"mac": {
-		"category": "public.app-category.entertainment",
-		"icon": "build/icon.icns",
-		"darkModeSupport": true,
-		"target": "dmg"
-	}
+    "appId": "com.yhvr.cloaker",
+    "productName": "Cloaker",
+    "copyright": "Copyright © 2019 Yhvr",
+    "mac": {
+      "category": "public.app-category.entertainment",
+      "icon": "build/icon.icns",
+      "darkModeSupport": true,
+      "target": "dmg"
+    }
   },
   "homepage": "https://yhvrwastaken.github.io/homepage"
 }
