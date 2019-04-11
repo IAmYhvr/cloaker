@@ -25,4 +25,4 @@ Cloaker is a client for the reddit alternative [SaidIt](https://saidit.net).
 
 # Important Notice
 
-Cloaker is an [Electron App](https://electronjs.org), giving it control to your whole computer. We are not responsible if any damage of any kind is done to your computer because of external links, or anything else.
+Cloaker is an [Electron App](https://electronjs.org), giving it control over your whole computer. We are not responsible if any damage of any kind is done to your computer because of external links, or anything else. By downloading Cloaker, You agree to this.
