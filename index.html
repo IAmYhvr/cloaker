@@ -23,7 +23,7 @@
     <div id="main">
         <div id="top">
 			<button onclick="alert(`[I] - Right click - Vote insightful.\n[F] - Right click - fun.\n[R] - Right click - Reply to comment.`)">Help</button>
-			<button onclick="alert(`Cloaker v0.1\nDeveloped By Yhvr\nNPM packages used: electron, redditor, electron-packager, & vex-js. Thanks!`)">About</button>
+			<button onclick="view('about')">About</button>
 			<button onclick="loadSub('home')">Home</button>
 			<button onclick="loadSub('all')">All</button>
 			<button onclick="loadSub('subscribed')">Subscribed</button>
@@ -39,7 +39,23 @@
         <div id="content">
             
         </div>
-    </div>
+	</div>
+	
+	<div id="about">
+		<img src="cloakerfull.png" alt="Cloaker"><br>
+		<h3>Cloaker v0.1.1</h3>
+		<h4>Made by Yhvr</h4>
+		<p>For discussion of Cloaker, see <a href="#" target="" onclick="loadSub('Cloaker')">/s/Cloaker</a>. For discussion of SaidIt, see <a href="#" target="" onclick="loadSub('SaidIt')">/s/SaidIt</a>.</p>
+		<details id="packages-used">
+			<summary>Cloaker uses code made by the community. Click to see more.</summary>
+			<p>Cloaker is an electron app, Allowing for use of npm packages. The packages used include:<br>
+			electron<br>
+			electron-builder<br>
+			redditor (Modified)<br>
+			vex-js</p>
+		</details>
+		<button onclick="view('main')">Back</button>
+	</div>
 
 	<!-- Scripts -->
 	<script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>

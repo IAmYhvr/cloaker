@@ -169,10 +169,10 @@ function normalStuff() {
             alert("Incorrect password or username.");
 		} else {
 			document.getElementById("login").style.display = "none"
+			document.getElementById("main").style.display = "block"
 
             saiditSession = authorized
 
-            document.getElementById("main").style.display = "block"
             authorized.get('/api/me.json', (err, response) => {
                 let data = parse.t2(response.data)
 				document.getElementById("user-info").innerHTML +=
@@ -197,11 +197,19 @@ function loadSub(sub) {
 			alert("ERROR: " + e)
 		}
 
+		content.innerHTML = ""
+
 		if (sub !== "home" && sub !== "all" && sub !== "subscribed") {
 			saiditSession.get((sub.startsWith("/s/") ? "" : "/s/") + sub + "/about.json", (err, response) => {
-				alert(err)
-
 				about = parse.t4(response.data)
+
+				console.log(about)
+
+				try {
+					content.innerHTML += `<h1>${(sub.startsWith("/s/") ? "" : "/s/") + sub}</h1>${sub !== "home" && sub !== "all" && sub !== "subscribed" ? `<i>${markdown.render(about.description.normal.normal)}</i>` : ``}${sub !== "home" && sub !== "all" && sub !== "subscribed" ? "<h3 onclick='postText(" + sub + ")'>Make text post</h3>" : ""}`
+				} catch (e) {
+					alert(e)
+				}
 
 				content.innerHTML +=
 					`<div class="content-sub-about">
@@ -210,43 +218,37 @@ function loadSub(sub) {
 						<span class="content-sub-about-subscribers">${about.subscribers} Subscribers</span>
 					</div>`
 
+				try {
+					posts.forEach(data => {
+						content.innerHTML +=
+							"<div class='content-post'>" +
+							"<h3 class='content-post-title' onclick='loadPost(`" + data.permalink + "`)'>" + data.title + "</h3>" +
+							"<span oncontextmenu='voteInsightful(`" + data.fullname + "`)' class='noMargin'> [I] </span>" +
+							"<span oncontextmenu='voteFun(`" + data.fullname + "`)' class='noMargin'> [F] </span>" +
+							`<span class='content-post-score'>${data.score}</span> | ` +
+							"<span class='content-post-sub' onclick='loadSub(this.innerHTML)'>/s/" + data.sub + "</span>" +
+							" | " +
+							"<span class='content-post-poster' onclick='loadUser(`" + data.poster + "`)'>" + isAdmin(data.poster) + "</span><br>" +
+							(
+								data.thumbnail === "textpost" ?
+									`<p class='content-post-text' onclick='loadPost(${data.permalink})'>${markdown.render(data.selftext.normal)}</p>` :
+									(
+										data.url.endsWith(".jpg") || data.url.endsWith("png") ?
+											`<img src='${data.url}' class='content-post-image' onclick='shell.openExternal("${data.url}")' width='auto' height='auto' align='middle'>` :
+											`<img src='${data.thumbnail}' class='content-post-thumbnail' onclick='shell.openExternal("${data.url}")' width='auto' height='auto'>`
+									)
+							) +
+							"</div>"
+					})
+					aTags = document.getElementsByTagName("a");
+					for (var i = 0; i < aTags.length; i++) {
+						aTags[i].setAttribute("onclick", "shell.openExternal('" + aTags[i].href + "')");
+						aTags[i].href = "#";
+					}
+				} catch (e) { /* masterful alerting skills */ }
 			})
 		}
-
-
-		content.innerHTML = `<h1>${(sub.startsWith("/s/") ? "" : "/s/") + sub}</h1>${sub !== "home" && sub !== "all" && sub !== "subscribed" ? `<i>${markdown.render(about.description.normal.normal)}</i>` : ``}${sub !== "home" && sub !== "all" && sub !== "subscribed" ? "<h3 onclick='postText(" + sub + ")'>Make text post</h3>" : ""}`
-
-		try {
-			posts.forEach(data => {
-				content.innerHTML +=
-					"<div class='content-post'>" +
-					"<h3 class='content-post-title' onclick='loadPost(`" + data.permalink + "`)'>" + data.title + "</h3>" +
-					"<span oncontextmenu='voteInsightful(`" + data.fullname + "`)' class='noMargin'> [I] </span>" +
-					"<span oncontextmenu='voteFun(`" + data.fullname + "`)' class='noMargin'> [F] </span>" +
-					"<span oncontextmenu='comment(`" + data.fullname + "`)' class='noMargin'> [R] </span>" +
-					`<span class='content-post-score'>${data.score}</span> | ` +
-					"<span class='content-post-sub' onclick='loadSub(this.innerHTML)'>/s/" + data.sub + "</span>" +
-					" | " +
-					"<span class='content-post-poster' onclick='loadUser(`" + data.poster + "`)'>" + isAdmin(data.poster) + "</span><br>" +
-					(
-						data.thumbnail === "textpost" ?
-							`<p class='content-post-text' onclick='loadPost(${data.permalink})'>${markdown.render(data.selftext.normal)}</p>` :
-							(
-								data.url.endsWith(".jpg") || data.url.endsWith("png") ?
-									`<img src='${data.url}' class='content-post-image' onclick='shell.openExternal("${data.url}")' width='auto' height='auto' align='middle'>` :
-									`<img src='${data.thumbnail}' class='content-post-thumbnail' onclick='shell.openExternal("${data.url}")' width='auto' height='auto'>`
-							)
-					) +
-					"</div>"
-			})
-			aTags = document.getElementsByTagName("a");
-			for (var i = 0; i < aTags.length; i++) {
-				aTags[i].setAttribute("onclick", "shell.openExternal('" + aTags[i].href + "')");
-				aTags[i].href = "#";
-			}
-		} catch (e) { /* masterful alerting skills */ }
 	})
-
 }
 
 function loadPost(url) {
@@ -260,7 +262,6 @@ function loadPost(url) {
 			"<h3 class='content-post-title' onclick='loadPost(`" + data.permalink + "`)'>" + data.title + "</h3>" +
 			"<span oncontextmenu='voteInsightful(`" + data.fullname + "`)' class='noMargin'> [I] </span>" +
 			"<span oncontextmenu='voteFun(`" + data.fullname + "`)' class='noMargin'> [F] </span>" +
-			"<span oncontextmenu='comment(`" + data.fullname + "`)' class='noMargin'> [R] </span>" +
 			`<span class='content-post-score'>${data.score}</span> | ` +
 			"<span class='content-post-sub' onclick='loadSub(this.innerHTML)'>/s/" + data.sub + "</span>" +
 			" | " +
@@ -274,7 +275,10 @@ function loadPost(url) {
 							`<img src='${data.thumbnail}' class='content-post-thumbnail' onclick='shell.openExternal("${data.url}")' width='auto' height='auto'>`
 					)
 			) +
-			"</div>"
+			`</div>
+			<textarea id="content-post-reply-textarea"></textarea><br>
+			<button onclick="comment('${data.fullname}', document.getElementById('content-post-reply-textarea').value)" id="content-post-reply-btn">Reply</button>`
+
 		content.innerHTML += commentsToHTML(comments)
 		
 		// https://stackoverflow.com/a/32721675/10637301
@@ -294,10 +298,10 @@ function commentsToHTML(comments) {
         html += "<summary>"
         html += "<span oncontextmenu='voteInsightful(`" + comment.fullname + "`)' class='noMargin'> [I] </span>"
 		html += "<span oncontextmenu='voteFun(`" + comment.fullname + "`)' class='noMargin'> [F] </span>"
-		html += "<span oncontextmenu='comment(`" + comment.fullname + "`)' class='noMargin'> [R] </span>"
+		html += "<span oncontextmenu='expandReply(this, `" + comment.fullname + "`)' class='noMargin'> [R] </span>"
         html += comment.score
         html += " | "
-		html += "<span onclick='loadUser(`" + comment.username + "`)'>" + isAdmin(comment.username) + "</span>"
+		html += "<span onclick='loadUser(`" + comment.username + "`)' class='content-comment-username'>" + isAdmin(comment.username) + "</span>"
         html += markdown.render(comment.content)
         html += "</summary>"
         html += commentsToHTML(comment.children)
@@ -345,17 +349,9 @@ function voteFun(id) {
     })
 }
 
-function comment(id) {
-	vex.dialog.prompt({
-		message: "What do you want to say?",
-		placeholder: "Nice post/comment, fellow Saidittor!",
-		callback: value => {
-			if (value !== false) {
-				saiditSession.post("/api/comment/", { api_type: "json", text: value, thing_id: id, isTrusted: true, uh: username, renderstyle: "html" }, (err, response) => {
-					alert("Commented!")
-				})
-			}
-		}
+function comment(id, text) {
+	saiditSession.post("/api/comment/", { api_type: "json", text: text, thing_id: id, isTrusted: true, uh: username, renderstyle: "html" }, (err, response) => {
+		alert("Commented!")
 	})
 }
 
@@ -416,4 +412,18 @@ function parseUserHistory(history) {
 	})
 	html += `</div>`
 	return html
+}
+
+function view(id) {
+	let views = ["main", "about"]
+	views.forEach(thisid => document.getElementById(thisid).style.display = "none")
+	document.getElementById(id).style.display = "block"
+}
+
+function expandReply(element, fullname) {
+	element.parentElement.innerHTML += `<div class='content-comment-reply'>
+		<textarea class='content-comment-reply-textarea'></textarea>
+		<button onclick='comment("${fullname}", this.previousElementSibling.value)'>Reply</button>
+		<button onclick='this.parentElement.innerHTML = ""'>Close</button>
+	</div>`
 }

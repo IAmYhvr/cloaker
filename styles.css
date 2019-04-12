@@ -11,12 +11,13 @@
     display: block;
 }
 
-#main {
+#main, #about {
 	display: none;
 }
 
 #user-info {
-    float: right;
+	width: auto;
+	float: right;
 }
 
 #content {
@@ -29,7 +30,8 @@ details * {
 }
 
 details {
-    border-left: solid white thin;
+	border: solid white thin;
+	border-radius: 5px;
     margin-bottom: 10px;
 }
 
@@ -43,7 +45,8 @@ details {
     height: auto;
     overflow: hidden;
     margin-left: 25px;
-    margin-bottom: 15px;
+	margin-bottom: 15px;
+	margin-top: 15px;
     border: solid thin white;
     border-radius: 25px;
 	padding: 5px;
@@ -58,11 +61,7 @@ img {
     max-width: 75vw;
 }
 
-.noMargin {
-    margin: 0px;
-}
-
-#login {
+#login, #about {
 	text-align: center;
 	width: 100vw;
 }
@@ -70,4 +69,31 @@ img {
 #top {
 	position: fixed;
 	width: 100vw;
+}
+
+a, p, .noMargin {
+	margin: 0px;
+}
+
+#packages-used {
+	border: none;
+}
+
+.content-post-thumbnail {
+	float: right;
+	margin-right: 15px;
+	border: solid medium rgb(61, 173, 211);
+	border-radius: 5px;
+}
+
+.content-comment-username {
+	margin: 0px;
+}
+
+#content-post-reply-textarea, #content-post-reply-btn {
+	margin-left: 25px;
+}
+
+#content-post-reply-btn {
+	margin-bottom: 10px;
 }
