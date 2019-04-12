@@ -203,8 +203,6 @@ function loadSub(sub) {
 			saiditSession.get((sub.startsWith("/s/") ? "" : "/s/") + sub + "/about.json", (err, response) => {
 				about = parse.t4(response.data)
 
-				console.log(about)
-
 				try {
 					content.innerHTML += `<h1>${(sub.startsWith("/s/") ? "" : "/s/") + sub}</h1>${sub !== "home" && sub !== "all" && sub !== "subscribed" ? `<i>${markdown.render(about.description.normal.normal)}</i>` : ``}${sub !== "home" && sub !== "all" && sub !== "subscribed" ? "<h3 onclick='postText(" + sub + ")'>Make text post</h3>" : ""}`
 				} catch (e) {
