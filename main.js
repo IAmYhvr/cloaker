@@ -168,8 +168,7 @@ function normalStuff() {
         if (err) {
             alert("Incorrect password or username.");
 		} else {
-			document.getElementById("login").style.display = "none"
-			document.getElementById("main").style.display = "block"
+			view("main")
 
             saiditSession = authorized
 
@@ -189,6 +188,7 @@ function normalStuff() {
 }
 
 function loadSub(sub) {
+	view("main")
 	saiditSession.get((sub.startsWith("/s/") ? "" : "/s/") + sub + ".json", (err, response) => {
 		let posts, about;
 		try {
@@ -199,53 +199,53 @@ function loadSub(sub) {
 
 		content.innerHTML = ""
 
-		if (sub !== "home" && sub !== "all" && sub !== "subscribed") {
-			saiditSession.get((sub.startsWith("/s/") ? "" : "/s/") + sub + "/about.json", (err, response) => {
-				about = parse.t4(response.data)
+		saiditSession.get((sub.startsWith("/s/") ? "" : "/s/") + sub + "/about.json", (err, response) => {
+			if (!err) about = parse.t4(response.data)
 
-				try {
-					content.innerHTML += `<h1>${(sub.startsWith("/s/") ? "" : "/s/") + sub}</h1>${sub !== "home" && sub !== "all" && sub !== "subscribed" ? `<i>${markdown.render(about.description.normal.normal)}</i>` : ``}${sub !== "home" && sub !== "all" && sub !== "subscribed" ? "<h3 onclick='postText(" + sub + ")'>Make text post</h3>" : ""}`
-				} catch (e) {
-					alert(e)
+			try {
+				content.innerHTML += `<h1>${(sub.startsWith("/s/") ? "" : "/s/") + sub}</h1>
+				${sub !== "home" && sub !== "all" && sub !== "subscribed" ? `<i>${markdown.render(about.description.normal.normal)}</i>` : ``}
+				${sub !== "home" && sub !== "all" && sub !== "subscribed" ? "<h3 onclick='view(\"textpost\")'>Make text post</h3>" : ""}
+				<div class="content-sub-about">
+					<span class="content-sub-about-description">Title: ${about.title}</span> | 
+					<span class="content-sub-about-online">~${about.online} People here right now</span> | 
+					<span class="content-sub-about-subscribers">${about.subscribers} Subscribers</span>
+				</div>`
+			} catch (e) {
+				content.innerHTML += `<h1>${(sub.startsWith("/s/") ? "" : "/s/") + sub}</h1>` // Don't load stuff if sub is auto-generated
+			}
+			
+			try {
+				posts.forEach(data => {
+					content.innerHTML +=
+						"<div class='content-post'>" +
+						"<h3 class='content-post-title' onclick='loadPost(`" + data.permalink + "`)'>" + data.title + "</h3>" +
+						"<span oncontextmenu='voteInsightful(`" + data.fullname + "`)' class='noMargin'> [I] </span>" +
+						"<span oncontextmenu='voteFun(`" + data.fullname + "`)' class='noMargin'> [F] </span>" +
+						`<span class='content-post-score'>${data.score}</span> | ` +
+						"<span class='content-post-sub' onclick='loadSub(this.innerHTML)'>/s/" + data.sub + "</span>" +
+						" | " +
+						"<span class='content-post-poster' onclick='loadUser(`" + data.poster + "`)'>" + isAdmin(data.poster) + "</span><br>" +
+						(
+							data.thumbnail === "textpost" ?
+								`<p class='content-post-text' onclick='loadPost(${data.permalink})'>${markdown.render(data.selftext.normal)}</p>` :
+								(
+									data.url.endsWith(".jpg") || data.url.endsWith("png") ?
+										`<img src='${data.url}' class='content-post-image' onclick='shell.openExternal("${data.url}")' width='auto' height='auto' align='middle'>` :
+										`<img src='${data.thumbnail}' class='content-post-thumbnail' onclick='shell.openExternal("${data.url}")' width='auto' height='auto'>`
+								)
+						) +
+						"</div>"
+				})
+
+				aTags = document.getElementsByTagName("a");
+				for (var i = 0; i < aTags.length; i++) {
+					aTags[i].setAttribute("onclick", "shell.openExternal('" + aTags[i].href + "')");
+					aTags[i].href = "#";
 				}
 
-				content.innerHTML +=
-					`<div class="content-sub-about">
-						<span class="content-sub-about-description">Title: ${about.title}</span> | 
-						<span class="content-sub-about-online">~${about.online} People here right now</span> | 
-						<span class="content-sub-about-subscribers">${about.subscribers} Subscribers</span>
-					</div>`
-
-				try {
-					posts.forEach(data => {
-						content.innerHTML +=
-							"<div class='content-post'>" +
-							"<h3 class='content-post-title' onclick='loadPost(`" + data.permalink + "`)'>" + data.title + "</h3>" +
-							"<span oncontextmenu='voteInsightful(`" + data.fullname + "`)' class='noMargin'> [I] </span>" +
-							"<span oncontextmenu='voteFun(`" + data.fullname + "`)' class='noMargin'> [F] </span>" +
-							`<span class='content-post-score'>${data.score}</span> | ` +
-							"<span class='content-post-sub' onclick='loadSub(this.innerHTML)'>/s/" + data.sub + "</span>" +
-							" | " +
-							"<span class='content-post-poster' onclick='loadUser(`" + data.poster + "`)'>" + isAdmin(data.poster) + "</span><br>" +
-							(
-								data.thumbnail === "textpost" ?
-									`<p class='content-post-text' onclick='loadPost(${data.permalink})'>${markdown.render(data.selftext.normal)}</p>` :
-									(
-										data.url.endsWith(".jpg") || data.url.endsWith("png") ?
-											`<img src='${data.url}' class='content-post-image' onclick='shell.openExternal("${data.url}")' width='auto' height='auto' align='middle'>` :
-											`<img src='${data.thumbnail}' class='content-post-thumbnail' onclick='shell.openExternal("${data.url}")' width='auto' height='auto'>`
-									)
-							) +
-							"</div>"
-					})
-					aTags = document.getElementsByTagName("a");
-					for (var i = 0; i < aTags.length; i++) {
-						aTags[i].setAttribute("onclick", "shell.openExternal('" + aTags[i].href + "')");
-						aTags[i].href = "#";
-					}
-				} catch (e) { /* masterful alerting skills */ }
-			})
-		}
+			} catch (e) { /* gl making me alert ;) */ }
+		})
 	})
 }
 
@@ -349,30 +349,14 @@ function voteFun(id) {
 
 function comment(id, text) {
 	saiditSession.post("/api/comment/", { api_type: "json", text: text, thing_id: id, isTrusted: true, uh: username, renderstyle: "html" }, (err, response) => {
-		alert("Commented!")
+		alert("Commented.")
 	})
 }
 
-function postText(sub) {
-	vex.dialog.prompt({
-		message: "What do you want the title to be?",
-		placeholder: "Check out this cool story my friend wrote!",
-		callback: value => {
-			let title = value
-			if (title !== false) {
-				vex.dialog.prompt({
-					message: "What do you want it to say?",
-					placeholder: "Lorem ipsum dolor sit amet, consectetur cras amet.",
-					callback: text => {
-						if (text !== false) {
-							saiditSession.post("/api/submit/", { api_type: "json", kind: "self", resubmit: true, sendreplies: true, sr: sub, text: text, title: title, isTrusted: true, uh: username, renderstyle: "html" }, (err, response) => {
-								alert(response + " | " + err)
-							})
-						}
-					}
-				})
-			}
-		}
+function textpost() {
+	saiditSession.post("/api/submit/", { api_type: "json", kind: "self", resubmit: true, sendreplies: true, sr: document.getElementById("makepost-text-sub").value, text: document.getElementById("makepost-text-text").value, title: document.getElementById("makepost-text-title").value, isTrusted: true, uh: username, renderstyle: "html" }, (err, response) => {
+		alert("Posted.")
+		view("main")
 	})
 }
 
@@ -413,14 +397,14 @@ function parseUserHistory(history) {
 }
 
 function view(id) {
-	let views = ["main", "about"]
+	let views = ["login", "main", "about", "textpost"]
 	views.forEach(thisid => document.getElementById(thisid).style.display = "none")
 	document.getElementById(id).style.display = "block"
 }
 
 function expandReply(element, fullname) {
 	element.parentElement.innerHTML += `<div class='content-comment-reply'>
-		<textarea class='content-comment-reply-textarea'></textarea>
+		<textarea class='content-comment-reply-textarea'></textarea><br>
 		<button onclick='comment("${fullname}", this.previousElementSibling.value)'>Reply</button>
 		<button onclick='this.parentElement.innerHTML = ""'>Close</button>
 	</div>`

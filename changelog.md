@@ -1,3 +1,19 @@
+### v0.1.2
+
+CHANGED:
+ - Redesigned Text post creation
+ - Fixed official subs (Ones without about.json) from not loading
+ - Fixed "About" menu opening index.html in browser
+
+KNOWN BUGS:
+
+ - Links with no thumbnails show the "Image Not Found" thingy
+
+TODO:
+ - Allow for link posts
+ - Allow for custom "Make Text Post"/"Make Link Post" text
+ - Have "Help" open README.md in browser
+
 ### v0.1.1
 
 CHANGED:

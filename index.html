@@ -45,7 +45,7 @@
 		<img src="cloakerfull.png" alt="Cloaker"><br>
 		<h3>Cloaker v0.1.1</h3>
 		<h4>Made by Yhvr</h4>
-		<p>For discussion of Cloaker, see <a href="#" target="" onclick="loadSub('Cloaker')">/s/Cloaker</a>. For discussion of SaidIt, see <a href="#" target="" onclick="loadSub('SaidIt')">/s/SaidIt</a>.</p>
+		<p>For discussion of Cloaker, see <a onclick="loadSub('Cloaker')">/s/Cloaker</a>. For discussion of SaidIt, see <a onclick="loadSub('SaidIt')">/s/SaidIt</a>.</p>
 		<details id="packages-used">
 			<summary>Cloaker uses code made by the community. Click to see more.</summary>
 			<p>Cloaker is an electron app, Allowing for use of npm packages. The packages used include:<br>
@@ -55,6 +55,16 @@
 			vex-js</p>
 		</details>
 		<button onclick="view('main')">Back</button>
+	</div>
+
+	<div id="textpost">
+		<h2>Make Text Post</h2>
+		<h4>Please follow sub rules.</h4>
+		<input type="text" id="makepost-text-sub" placeholder="/s/Cloaker"><br>
+		<input type="text" id="makepost-text-title" placeholder="Check out this cool title!"><br>
+		<textarea type="text" id="makepost-text-text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse felis nibh, venenatis non nibh maximus, cursus venenatis odio. In accumsan metus."></textarea><br>
+		<button onclick="view('main')">Close</button>
+		<button onclick="textpost()">Post</button>
 	</div>
 
 	<!-- Scripts -->

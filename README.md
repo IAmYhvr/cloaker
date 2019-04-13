@@ -17,7 +17,7 @@ Cloaker is a client for the reddit alternative [SaidIt](https://saidit.net).
 |:----------:|:--------------------:|:----------------:|
 |    Right   |    Vote Insightful   |        [I]       |
 |    Right   |       Vote Fun       |        [F]       |
-|    Right   |         Reply        |        [R]       |
+|    Right   |     Prompt Reply     |        [R]       |
 |    Left    |       View Post      |    Post Title    |
 |    Left    |   View User's Info   |     Username     |
 |    Left    |    View Subreddit    |     Subreddit    |

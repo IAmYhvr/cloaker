@@ -11,7 +11,7 @@
     display: block;
 }
 
-#main, #about {
+#main, #about, #textpost {
 	display: none;
 }
 
