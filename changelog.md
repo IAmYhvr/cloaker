@@ -13,6 +13,7 @@ TODO:
  - Allow for link posts
  - Allow for custom "Make Text Post"/"Make Link Post" text
  - Have "Help" open README.md in browser
+ - Remove vex-js from dependencies
 
 ### v0.1.1
 
