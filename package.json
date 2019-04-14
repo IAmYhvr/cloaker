@@ -1,6 +1,6 @@
 {
   "name": "cloaker",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Electron-based SaidIt client.",
   "main": "index.js",
   "scripts": {
@@ -15,8 +15,7 @@
   "author": "Yhvr",
   "license": "ISC",
   "dependencies": {
-    "redditor": "^1.1.1",
-    "vex-js": "^4.1.0"
+    "redditor": "^1.1.1"
   },
   "devDependencies": {
     "electron": "^4.1.3",

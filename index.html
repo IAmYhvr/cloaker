@@ -9,20 +9,18 @@
     <title>Cloaker</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="node_modules/vex-js/dist/css/vex.css">
-    <link rel="stylesheet" href="node_modules/vex-js/dist/css/vex-theme-default.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="noMargin">
     <div id="login">
 		<img src="cloakerfull.png" alt="Cloaker"><br>
-		<input type="text" placeholder="Username" id="username"><br>
+		<input autofocus type="text" placeholder="Username" id="username"><br>
 		<input type="password" placeholder="Password" id="password"><br>
 		<input type="submit" value="Login" onclick="login()">
     </div>
     <div id="main">
         <div id="top">
-			<button onclick="alert(`[I] - Right click - Vote insightful.\n[F] - Right click - fun.\n[R] - Right click - Reply to comment.`)">Help</button>
+			<button onclick="shell.openExternal('https://github.com/YhvrWasTaken/cloaker/blob/master/README.md')">Help</button>
 			<button onclick="view('about')">About</button>
 			<button onclick="loadSub('home')">Home</button>
 			<button onclick="loadSub('all')">All</button>
@@ -43,7 +41,7 @@
 	
 	<div id="about">
 		<img src="cloakerfull.png" alt="Cloaker"><br>
-		<h3>Cloaker v0.1.1</h3>
+		<h3>Cloaker v0.2.0</h3>
 		<h4>Made by Yhvr</h4>
 		<p>For discussion of Cloaker, see <a onclick="loadSub('Cloaker')">/s/Cloaker</a>. For discussion of SaidIt, see <a onclick="loadSub('SaidIt')">/s/SaidIt</a>.</p>
 		<details id="packages-used">
@@ -52,7 +50,8 @@
 			electron<br>
 			electron-builder<br>
 			redditor (Modified)<br>
-			vex-js</p>
+			<p>Other Code Used:</p>
+			<span onclick="shell.openExternal('https://github.com/jonschlinkert/remarkable')">Remarkable</span>
 		</details>
 		<button onclick="view('main')">Back</button>
 	</div>
@@ -65,11 +64,22 @@
 		<textarea type="text" id="makepost-text-text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse felis nibh, venenatis non nibh maximus, cursus venenatis odio. In accumsan metus."></textarea><br>
 		<button onclick="view('main')">Close</button>
 		<button onclick="textpost()">Post</button>
+		<button onclick="view('linkpost')">Submit a link instead</button>
+	</div>
+
+	<div id="linkpost">
+		<h2>Make Link Post</h2>
+		<h4>Please follow sub rules.</h4>
+		<input type="text" id="makepost-link-sub" placeholder="/s/Cloaker"><br>
+		<input type="text" id="makepost-link-title" placeholder="Check out this cool title!"><br>
+		<input type="text" id="makepost-link-url" placeholder="https://saidit.net" width="350px"></input><br>
+		<button onclick="view('main')">Close</button>
+		<button onclick="linkpost()">Post</button>
+		<button onclick="view('textpost')">Submit text instead</button>
 	</div>
 
 	<!-- Scripts -->
 	<script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>
-    <script src="node_modules/vex-js/dist/js/vex.combined.min.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

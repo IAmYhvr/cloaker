@@ -1,3 +1,24 @@
+## v0.2.0
+
+CHANGED:
+ - Have "Help" open README.md in browser
+ - Make the ENTIRE THING WHITE
+ - Link Posts are now possible
+ - Made the login look nice
+ - Posts Have shadows
+ - Removed vex-js from dependencies
+
+KNOWN BUGS:
+
+ - Links with no thumbnails show the "Image Not Found" thingy
+
+TODO:
+ - Night mode
+ - Sub Rules
+ - Unify string types
+ - Comment Editing
+
+
 ### v0.1.2
 
 CHANGED:

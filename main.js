@@ -203,13 +203,15 @@ function loadSub(sub) {
 			if (!err) about = parse.t4(response.data)
 
 			try {
-				content.innerHTML += `<h1>${(sub.startsWith("/s/") ? "" : "/s/") + sub}</h1>
-				${sub !== "home" && sub !== "all" && sub !== "subscribed" ? `<i>${markdown.render(about.description.normal.normal)}</i>` : ``}
-				${sub !== "home" && sub !== "all" && sub !== "subscribed" ? "<h3 onclick='view(\"textpost\")'>Make text post</h3>" : ""}
-				<div class="content-sub-about">
-					<span class="content-sub-about-description">Title: ${about.title}</span> | 
-					<span class="content-sub-about-online">~${about.online} People here right now</span> | 
-					<span class="content-sub-about-subscribers">${about.subscribers} Subscribers</span>
+				content.innerHTML += `<div class="content-post content-subinfo">
+					<h1>${(sub.startsWith("/s/") ? "" : "/s/") + sub}</h1>
+					${sub !== "home" && sub !== "all" && sub !== "subscribed" ? `<i>${prettify(about.description.normal.normal)}</i>` : ``}
+					${sub !== "home" && sub !== "all" && sub !== "subscribed" ? `<h3><span onclick='view("textpost")'>Make text post</span> | <span onclick='view("linkpost")'>Make link post</span></h3>` : ""}
+					<div class="content-sub-about">
+						<span class="content-sub-about-description">Title: ${about.title}</span> | 
+						<span class="content-sub-about-online">~${about.online} People here right now</span> | 
+						<span class="content-sub-about-subscribers">${about.subscribers} Subscribers</span>
+					</div>
 				</div>`
 			} catch (e) {
 				content.innerHTML += `<h1>${(sub.startsWith("/s/") ? "" : "/s/") + sub}</h1>` // Don't load stuff if sub is auto-generated
@@ -228,7 +230,7 @@ function loadSub(sub) {
 						"<span class='content-post-poster' onclick='loadUser(`" + data.poster + "`)'>" + isAdmin(data.poster) + "</span><br>" +
 						(
 							data.thumbnail === "textpost" ?
-								`<p class='content-post-text' onclick='loadPost(${data.permalink})'>${markdown.render(data.selftext.normal)}</p>` :
+								`<p class='content-post-text' onclick='loadPost(${data.permalink})'>${prettify(data.selftext.normal)}</p>` :
 								(
 									data.url.endsWith(".jpg") || data.url.endsWith("png") ?
 										`<img src='${data.url}' class='content-post-image' onclick='shell.openExternal("${data.url}")' width='auto' height='auto' align='middle'>` :
@@ -266,7 +268,7 @@ function loadPost(url) {
 			"<span class='content-post-poster' onclick='loadUser(`" + data.poster + "`)'>" + isAdmin(data.poster) + "</span><br>" +
 			(
 				data.thumbnail === "textpost" ?
-					`<p class='content-post-text' onclick='loadPost(${data.permalink})'>${markdown.render(data.selftext.normal)}</p>` :
+					`<p class='content-post-text' onclick='loadPost(${data.permalink})'>${prettify(data.selftext.normal)}</p>` :
 					(
 						data.url.endsWith(".jpg") || data.url.endsWith("png") ?
 							`<img src='${data.url}' class='content-post-image' onclick='shell.openExternal("${data.url}")' width='auto' height='auto' align='middle'>` :
@@ -300,7 +302,7 @@ function commentsToHTML(comments) {
         html += comment.score
         html += " | "
 		html += "<span onclick='loadUser(`" + comment.username + "`)' class='content-comment-username'>" + isAdmin(comment.username) + "</span>"
-        html += markdown.render(comment.content)
+        html += prettify(comment.content)
         html += "</summary>"
         html += commentsToHTML(comment.children)
         html += "</details>"
@@ -360,6 +362,13 @@ function textpost() {
 	})
 }
 
+function linkpost() {
+	saiditSession.post("/api/submit/", { api_type: "json", kind: "link", resubmit: true, sendreplies: true, sr: document.getElementById("makepost-link-sub").value, url: document.getElementById("makepost-link-url").value, title: document.getElementById("makepost-link-title").value, isTrusted: true, uh: username, renderstyle: "html" }, (err, response) => {
+		alert("Posted!")
+		view("main")
+	})
+}
+
 function parseUserHistory(history) {
 	let html = ``
 	html += `<div class='content-user-history'>`
@@ -368,7 +377,7 @@ function parseUserHistory(history) {
 			html += `<div class="content-user-history-comment">
 				<span class="content-user-history-comment-score">${data.score}</span> | 
 				<span class="content-user-history-comment-username">${data.username}</span>
-				<p class="content-user-history-comment-text">${markdown.render(data.content)}</p>
+				<p class="content-user-history-comment-text">${prettify(data.content)}</p>
 			</div>`
 		} else if (data.type === "t5") {
 			if (data.thumbnail === "textpost") {
@@ -377,7 +386,7 @@ function parseUserHistory(history) {
 					<span class="content-user-history-post-score">${data.score}</span> | 
 					<span class="content-user-history-post-username">${data.username}</span>
 					<span class="content-user-history-post-sub">/s/${data.sub}</span>
-					<p class="content-user-history-post-text">${markdown.render(data.selftext.normal)}</p>
+					<p class="content-user-history-post-text">${prettify(data.selftext.normal)}</p>
 				</div>`
 			} else {
 				// Link/Image, handle image like link
@@ -397,7 +406,7 @@ function parseUserHistory(history) {
 }
 
 function view(id) {
-	let views = ["login", "main", "about", "textpost"]
+	let views = ["login", "main", "about", "textpost", "linkpost"]
 	views.forEach(thisid => document.getElementById(thisid).style.display = "none")
 	document.getElementById(id).style.display = "block"
 }
@@ -408,4 +417,8 @@ function expandReply(element, fullname) {
 		<button onclick='comment("${fullname}", this.previousElementSibling.value)'>Reply</button>
 		<button onclick='this.parentElement.innerHTML = ""'>Close</button>
 	</div>`
+}
+
+function prettify(text) {
+	return markdown.render(text).replace(/\/s\/\w+/g, "<span class='content-sub-link' onclick=loadSub('$&')>$&</span>").replace(/\/u\/\w+/g, "<span class='content-user-link' onclick=loadUser('$&')>$&</span>")
 }

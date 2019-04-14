@@ -1,7 +1,7 @@
 * {
-    background-color: rgb(28, 32, 39);
+    background-color: rgb(230, 221, 207);
     font-family: sans-serif;
-    color: white;
+    color: black;
     outline: none;
 }
 
@@ -11,7 +11,7 @@
     display: block;
 }
 
-#main, #about, #textpost {
+#main, #about, #textpost, #linkpost, #top {
 	display: none;
 }
 
@@ -30,9 +30,15 @@ details * {
 }
 
 details {
-	border: solid white thin;
+	border: solid black thin;
 	border-radius: 5px;
-    margin-bottom: 10px;
+	margin-bottom: 10px;
+}
+
+#content details {
+	max-width: calc(100vw - 50px);
+	margin-left: 25px;
+	margin-right: 25px;
 }
 
 .content-post-text, .content-post-image {
@@ -47,18 +53,24 @@ details {
     margin-left: 25px;
 	margin-bottom: 15px;
 	margin-top: 15px;
-    border: solid thin white;
+    border: solid thin black;
     border-radius: 25px;
 	padding: 5px;
 	min-height: 250px;
+	box-shadow: 0px 0px 50px grey; 
+}
+
+.content-post, .content-post * {
+	background-color: rgb(212, 204, 191);
 }
 
 .content-user-history-post, .content-user-history-comment {
-	border-bottom: solid thin white;
+	border-bottom: solid thin black;
 }
 
 img {
-    max-width: 75vw;
+	max-width: 75vw;
+	max-height: 95vh;
 }
 
 #login, #about {
@@ -96,4 +108,29 @@ a, p, .noMargin {
 
 #content-post-reply-btn {
 	margin-bottom: 10px;
+}
+
+.content-subinfo {
+	text-align: center;
+}
+
+#username, #password {
+	width: 250px;
+	height: 50px;
+	border: solid black thin;
+	text-align: center;
+	margin-bottom: 15px;
+	transition: border-radius 1s
+}
+
+#username:hover, #password:hover {
+	border-radius: 25px;
+}
+
+button, input {
+	border: solid black thin;
+}
+
+button, input[type="submit"] {
+	border-radius: 5px;
 }
