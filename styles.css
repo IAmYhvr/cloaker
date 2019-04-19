@@ -1,7 +1,5 @@
 * {
-    background-color: rgb(230, 221, 207);
     font-family: sans-serif;
-    color: black;
     outline: none;
 }
 
@@ -11,7 +9,7 @@
     display: block;
 }
 
-#main, #about, #textpost, #linkpost, #top {
+#main, #about, #textpost, #linkpost, #user-info, #options, #explore {
 	display: none;
 }
 
@@ -20,8 +18,8 @@
 	float: right;
 }
 
-#content {
-	padding-top: 15px;
+#content, #options-main, .content-explore {
+	margin-top: calc(48px + 25px) !important;
 }
 
 /* Simple comment indentation */
@@ -30,7 +28,7 @@ details * {
 }
 
 details {
-	border: solid black thin;
+	border: solid thin;
 	border-radius: 5px;
 	margin-bottom: 10px;
 }
@@ -53,19 +51,14 @@ details {
     margin-left: 25px;
 	margin-bottom: 15px;
 	margin-top: 15px;
-    border: solid thin black;
+    border: solid thin;
     border-radius: 25px;
 	padding: 5px;
 	min-height: 250px;
-	box-shadow: 0px 0px 50px grey; 
-}
-
-.content-post, .content-post * {
-	background-color: rgb(212, 204, 191);
 }
 
 .content-user-history-post, .content-user-history-comment {
-	border-bottom: solid thin black;
+	border-bottom: solid thin ;
 }
 
 img {
@@ -81,6 +74,8 @@ img {
 #top {
 	position: fixed;
 	width: 100vw;
+	top: 0;
+	height: 48px;
 }
 
 a, p, .noMargin {
@@ -94,7 +89,7 @@ a, p, .noMargin {
 .content-post-thumbnail {
 	float: right;
 	margin-right: 15px;
-	border: solid medium rgb(61, 173, 211);
+	border: solid medium;
 	border-radius: 5px;
 }
 
@@ -110,14 +105,15 @@ a, p, .noMargin {
 	margin-bottom: 10px;
 }
 
-.content-subinfo {
+.content-subinfo, .content-explore {
 	text-align: center;
+	height: auto;
 }
 
 #username, #password {
 	width: 250px;
 	height: 50px;
-	border: solid black thin;
+	border: solid thin;
 	text-align: center;
 	margin-bottom: 15px;
 	transition: border-radius 1s
@@ -128,9 +124,39 @@ a, p, .noMargin {
 }
 
 button, input {
-	border: solid black thin;
+	border: solid thin;
 }
 
 button, input[type="submit"] {
 	border-radius: 5px;
+}
+
+.top-btn {
+	width: 32px;
+	height: 32px;
+	margin-left: calc(12.25% - 16px);
+	margin-right: calc(12.25% - 16px);
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+#textpost, #linkpost {
+	text-align: center;
+}
+
+#makepost-text-text {
+	text-align: left;
+}
+
+#makepost-text-sub, #makepost-text-title, #makepost-link-sub, #makepost-link-title {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 250px;
+	height: 15px;
+}
+
+.top {
+	position: fixed;
+	width: 100vw;
+	top: 0;
 }

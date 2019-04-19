@@ -8,7 +8,7 @@ Cloaker is a client for the reddit alternative [SaidIt](https://saidit.net).
 2. Select the latest release (Green) or pre-release. (Reddish-Orange)
 3. Download the packaged application (.app/.dmg macOS)
 4. Install + Launch Cloaker.
-5. Sign in with your SaidIt account info. We don't keep any of it.
+5. Sign in with your SaidIt account info. **WARNING:** It's stored on your own computer.
 6. Enjoy!
 
 # Basic Usage
@@ -18,9 +18,10 @@ Cloaker is a client for the reddit alternative [SaidIt](https://saidit.net).
 |    Right   |    Vote Insightful   |        [I]       |
 |    Right   |       Vote Fun       |        [F]       |
 |    Right   |     Prompt Reply     |        [R]       |
+|    Right   |     Prompt Edit      |        [E]       |
 |    Left    |       View Post      |    Post Title    |
-|    Left    |   View User's Info   |     Username     |
-|    Left    |    View Subreddit    |     Subreddit    |
+|    Left    |   View User's Info   |   /u/[username]  |
+|    Left    |    View SubSaidit    |   /s/[sub name]  |
 |    Left    | Open Link in Browser |  Post Thumbnail  |
 
 # Important Notice

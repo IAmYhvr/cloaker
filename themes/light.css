@@ -1,0 +1,33 @@
+* {
+    background-color: rgb(230, 221, 207);
+    color: black;
+}
+
+details {
+	border-color: black;
+}
+
+.content-post {
+    border-color: black;
+	box-shadow: 0px 0px 50px grey; 
+}
+
+.content-post, .content-post * {
+	background-color: rgb(212, 204, 191);
+}
+
+.content-user-history-post, .content-user-history-comment {
+	border-bottom-color: black;
+}
+
+.content-post-thumbnail {
+	border-color: rgb(61, 173, 211);
+}
+
+#username, #password {
+	border-color: black;
+}
+
+button, input {
+	border-color: black;
+}

@@ -1,3 +1,25 @@
+## v0.3.0
+
+CHANGED:
+ - I got us some cool icons
+ - Added a fancy options panel
+ - We have a dark theme
+ - There is now Auto-Login
+ - You can edit your comments
+ - Backend stuff
+ - Posts now show "[x] Comments"
+
+KNOWN BUGS:
+
+ - Links with no thumbnails show the "Image Not Found" thingy
+
+TODO:
+ - Sub Rules
+ - Style user profiles
+ - Style options
+ - User CSS (If you know how to do this, Please help)
+ - "Posted [x] ago" (Same here)
+
 ## v0.2.0
 
 CHANGED:

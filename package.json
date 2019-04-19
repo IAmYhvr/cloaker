@@ -1,6 +1,6 @@
 {
   "name": "cloaker",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Electron-based SaidIt client.",
   "main": "index.js",
   "scripts": {

@@ -1,0 +1,33 @@
+* {
+    background-color: rgb(59, 58, 55);
+    color: rgb(204, 204, 204);
+}
+
+details {
+	border-color: rgb(204, 204, 204);
+}
+
+.content-post {
+    border-color: rgb(204, 204, 204);
+	box-shadow: 0px 0px 10px rgb(175, 175, 175); 
+}
+
+.content-post, .content-post * {
+	background-color: rgb(43, 42, 39);
+}
+
+.content-user-history-post, .content-user-history-comment {
+	border-bottom-color: rgb(204, 204, 204);
+}
+
+.content-post-thumbnail {
+	border-color: rgb(197, 129, 3);
+}
+
+#username, #password {
+	border-color: rgb(204, 204, 204);
+}
+
+button, input {
+	border-color: rgb(204, 204, 204);
+}
