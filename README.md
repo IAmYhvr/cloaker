@@ -1,3 +1,5 @@
+# Cloaker is now archived and has several security vulnerabilities. I wouldn't use it if I were you.
+
 # What is Cloaker?
 
 Cloaker is a client for the reddit alternative [SaidIt](https://saidit.net).
